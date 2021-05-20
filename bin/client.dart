@@ -11,8 +11,12 @@ void main(List<String> args) async {
   final serviceClient = AlbumServiceClient(channel);
 
   var response = await serviceClient.getAlbum(AlbumRequest());
-  print(response);
-  print(response.writeToJson());
+  // print('Response => \n $response');
+  print('Response JSON => ${response.writeToJson()} \n');
+
+  var responseData = await serviceClient.getAlbum(AlbumRequest()..id = 1);
+  // print('Response Data => \n $responseData');
+  print('Response Data JSON => ${responseData.writeToJson()}');
 
   await channel.shutdown();
 }
