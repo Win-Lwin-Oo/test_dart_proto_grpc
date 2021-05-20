@@ -50,6 +50,26 @@ class AlbumService extends AlbumServiceBase {
 
   Photo convertToPhoto(Map photo) => Photo.fromJson(
       '{"1": ${photo['albumId']}, "2": ${photo['id']}, "3": "${photo['title']}", "4": "${photo['url']}"}');
+
+// Server streaming RPC
+  @override
+  Stream<Photo> getPhotos(ServiceCall call, AlbumRequest request) async* {
+    var photoList = photos;
+
+    if (request.id > 0) {
+      photoList =
+          photos.where((photo) => photo['albumId'] == request.id).toList();
+    }
+
+    for (final photo in photoList) {
+      yield Photo.fromJson('''{
+        "1": ${photo['albumId']},
+        "2": ${photo['id']},
+        "3": "${photo['title']}",
+        "4": "${photo['url']}"
+      }''');
+    }
+  }
 }
 
 void main(List<String> args) async {

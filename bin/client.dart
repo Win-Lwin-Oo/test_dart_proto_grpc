@@ -22,5 +22,15 @@ void main(List<String> args) async {
       await serviceClient.getAlbumWithPhotos(AlbumRequest()..id = 3);
   print('Response photos => \n $responsePhotos');
 
+  var photoStream = serviceClient.getPhotos(AlbumRequest());
+  await for (var photo in photoStream) {
+    print('Response photo => ${photo.url}');
+  }
+
+  var photoData = serviceClient.getPhotos(AlbumRequest()..id = 5);
+  await for (var photo in photoData) {
+    print('Response photo filter => ${photo.url}');
+  }
+
   await channel.shutdown();
 }
