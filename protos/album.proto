@@ -15,6 +15,7 @@ message Photo {
 
 service AlbumService {
   rpc getAlbum (AlbumRequest) returns (AlbumResponse);
+  rpc getAlbumWithPhotos (AlbumRequest) returns (AlbumResponse);
 }
 
 message AlbumRequest {

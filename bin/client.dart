@@ -18,5 +18,9 @@ void main(List<String> args) async {
   // print('Response Data => \n $responseData');
   print('Response Data JSON => ${responseData.writeToJson()}');
 
+  var responsePhotos =
+      await serviceClient.getAlbumWithPhotos(AlbumRequest()..id = 3);
+  print('Response photos => \n $responsePhotos');
+
   await channel.shutdown();
 }
